@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Modelos
 const Usuario = require('../models/usuarios');
+const Viaje = require('../models/viajes');
 
 router.get('/', async(req, res) => {
     const usuarios = await Usuario.find();
@@ -37,5 +38,15 @@ router.post('/edit/:id', async (req, res) => {
     res.redirect('/');
 });
 
+
+// Viajes de un pasajero
+router.get('/viajespasajero/:id', async (req, res) => {
+    const { id } = req.params;
+    const usuario = await Usuario.findById(id);
+    let query = {"pasajeros": usuario._id};
+    const viajes = await Viaje.find(query);
+
+    res.render('viajespasajero.html', {usuario, viajes, title: 'Viajes de pasajero'});
+})
 
 module.exports = router;

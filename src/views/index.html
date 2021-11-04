@@ -15,7 +15,7 @@
         <input type="text" name="password" placeholder="Tu contraseña">
         <input type="submit" value="Guardar">
     </form>
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -32,6 +32,7 @@
                     <td><%= usuario.email %></td>
                     <td><%= usuario.password %></td>
                     <td>
+                        <a href="/viajespasajero/<%= usuario._id %>">Viajes como pasajero</a>
                         <a href="/delete/<%= usuario._id %>">Eliminar</a>
                         <a href="/edit/<%= usuario._id %>">Editar</a>
                     </td>
