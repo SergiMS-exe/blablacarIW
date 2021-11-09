@@ -49,4 +49,11 @@ router.get('/viajespasajero/:id', async (req, res) => {
     res.render('viajespasajero.html', {usuario, viajes, title: 'Viajes de pasajero'});
 })
 
+// Todos los viajes (TODO: Se podrán hacer busquedas sobre ellos)
+router.get('/listaviajes', async (req, res) => {
+    const viajes = await Viaje.find();
+    
+    res.render('listaviajes.html', {viajes, title: 'Lista de Viajes'})
+})
+
 module.exports = router;
