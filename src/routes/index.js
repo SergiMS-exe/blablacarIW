@@ -56,4 +56,14 @@ router.get('/listaviajes', async (req, res) => {
     res.render('listaviajes.html', {viajes, title: 'Lista de Viajes'})
 })
 
+//Viajes con el id de un conductor concreto
+router.get('/viajesconductor/:id', async (req,res) => {
+    const { id } = req.params;
+    const usuario = await Usuario.findById(id);
+    let query = {"id_conductor": usuario._id}
+    const viajes = await Viaje.find(query);
+
+    res.render('viajesconductor.html', {usuario, viajes, title: "Viajes con un conductor concreto"})
+})
+
 module.exports = router;
