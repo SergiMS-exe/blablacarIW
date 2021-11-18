@@ -31,6 +31,7 @@ module.exports = function (app, gestorBD) {
                 res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
             }
             else {
+                
                 res.redirect('/');
             }
         })

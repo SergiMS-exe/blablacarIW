@@ -1,6 +1,6 @@
 const express = require('express'); 
 const app = express(); 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 
 // This displays message that the server running and listening to specified port

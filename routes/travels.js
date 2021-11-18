@@ -32,6 +32,7 @@ module.exports = function (app, gestorBD) {
 
     //Viajes con el id de un conductor concreto
     app.get('/viajesconductor/:id', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'usuarios', function(resultUser) {
             if (resultUser==null)
                 res.send({ Error: { status: 1, data: "Se ha producido un error al obtener el conductor, intentelo de nuevo más tarde" } })
@@ -41,7 +42,7 @@ module.exports = function (app, gestorBD) {
                     if (resultTravel==null)
                         res.send({ Error: { status: 1, data: "Se ha producido un error al obtener los viajes del conductor, intentelo de nuevo más tarde" } })
                     else
-                    res.render('viajesconductor.html', { usuario, viajes, title: "Viajes con un conductor concreto" })
+                        res.render('viajesconductor.html', { usuario, viajes, title: "Viajes con un conductor concreto" })
                 });
             } 
         })
