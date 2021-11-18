@@ -1,0 +1,75 @@
+module.exports = function (app, gestorBD) {
+    
+    app.get("/", function (req, res) {
+        gestorBD.obtenerItem({}, 'usuarios', function (usuarios) {
+            if (usuarios == null) {
+                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
+            } else {
+                console.log(usuarios);
+                res.render('index.html', { usuarios, title: 'CRUD de usuarios' }); // Accede a src/viwes y busca index.html
+            }
+        });
+    });
+
+    app.post('/add', function (req, res) {
+        //TODO hacer validador y encriptar la contraseña
+        gestorBD.insertarItem(req.body, 'usuarios', function (usuario) {
+            if (usuario == null) {
+                console.log("WARN: Fallo al insertar un usuario. Email: " + req.body.email)
+                res.send({ Error: { status: 1, data: "Se ha producido un error al insertar el usuario, intentelo de nuevo más tarde" } })
+            }
+            else {
+                res.redirect('/');
+            }
+        });
+    });
+
+    app.get('/delete/:id', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+        gestorBD.eliminarItem(criterio, 'usuarios', function(result){
+            if (result==null){
+                res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
+            }
+            else {
+                res.redirect('/');
+            }
+        })
+    });
+
+    app.get('/edit/:id', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+        gestorBD.obtenerItem(criterio, 'usuarios', function(usuario){
+            if(usuario==null){
+                res.send({ Error: { status: 1, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
+            }
+            else {
+                res.render('edit.html', {usuario});
+            }
+        });        
+    })
+    
+    app.post('/edit/:id', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+        let nuevoUsuario = req.body;
+        gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
+            if (result==null)
+                res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
+            else {
+                res.redirect('/');
+            }
+        })
+    });
+
+    app.get('/findUser', function(req, res){
+        let query = req.query.namesurnameuser
+        let criterio = { $or: [{'nombre': {$regex: ".*"+query+".*"}}, {'apellido': {$regex: ".*"+query+".*"}}]}
+        gestorBD.obtenerItem(criterio, 'usuarios', function(usuarios) {
+            if (usuarios == null) {
+                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
+            } else {
+                console.log(usuarios)
+                res.render('index.html', { usuarios, title: 'CRUD de usuarios' }); // Accede a src/viwes y busca index.html
+            }
+        });
+    });
+}
