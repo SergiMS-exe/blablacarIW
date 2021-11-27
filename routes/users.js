@@ -46,8 +46,8 @@ module.exports = function (app, gestorBD) {
         });        
     })
     
-    app.post('/users/edit/:id', function (req, res) {
-        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+    app.post('/users/edit', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         let nuevoUsuario = req.body;
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
