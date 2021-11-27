@@ -286,6 +286,11 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Usuarios tienen Ana como nombre o apellido\", () => {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  const usuarios = responseJson.data.usuarios;\r",
+									"  usuarios.forEach(usuario => pm.expect((usuario.nombre + usuario.apellido).includes(\"Ana\")).to.be.true);\r",
 									"});"
 								],
 								"type": "text/javascript"

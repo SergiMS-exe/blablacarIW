@@ -7,7 +7,7 @@ module.exports = function (app, gestorBD) {
             if (resultUser==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al obtener el usuario, intentelo de nuevo más tarde" } })
             else {
-                let query = { "pasajeros": gestorBD.mongo.ObjectID(req.params.id) };
+                let query = { "id_pasajeros": req.params.id };
                 gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
                     if (resultTravel==null)
                         res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del usuario, intentelo de nuevo más tarde" } })
@@ -37,7 +37,7 @@ module.exports = function (app, gestorBD) {
             if (resultUser==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al obtener el conductor, intentelo de nuevo más tarde" } })
             else {
-                let query = { "id_conductor": resultUser._id };
+                let query = { "id_conductor": req.params.id };
                 gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
                     if (resultTravel==null)
                         res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del conductor, intentelo de nuevo más tarde" } })
