@@ -1,7 +1,7 @@
-const express = require('express'); 
+const express = require('express');
 const app = express(); 
 const port = process.env.PORT || 3000;
-
+const https = require('https');
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
@@ -26,3 +26,4 @@ app.set('db', 'mongodb://root:root@cluster0-shard-00-00.xrhm0.mongodb.net:27017,
 //Rutas/controladores por lógica
 require("./routes/users")(app, gestorBD);  // (app, param1, param2, etc.)
 require("./routes/travels")(app, gestorBD);
+require("./routes/wheater_api")(app);

@@ -5,13 +5,12 @@ module.exports = function (app, gestorBD) {
             if (usuarios == null) {
                 res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
             } else {
-                console.log(usuarios);
-                res.render('index.html', { usuarios, title: 'CRUD de usuarios' }); // Accede a src/viwes y busca index.html
+                res.send(usuarios);
             }
         });
     });
 
-    app.post('/add', function (req, res) {
+    app.post('/users/add', function (req, res) {
         //TODO hacer validador y encriptar la contraseña
         gestorBD.insertarItem(req.body, 'usuarios', function (usuario) {
             if (usuario == null) {
@@ -19,44 +18,43 @@ module.exports = function (app, gestorBD) {
                 res.send({ Error: { status: 1, data: "Se ha producido un error al insertar el usuario, intentelo de nuevo más tarde" } })
             }
             else {
-                res.redirect('/');
+                res.send({msg: 'Usuario añadido correctamente'})
             }
         });
     });
 
-    app.get('/delete/:id', function (req, res) {
+    app.get('/users/delete/:id', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){
                 res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
             }
             else {
-                
-                res.redirect('/');
+                res.send({msg: 'Usuario eliminado correctamente'})
             }
         })
     });
 
-    app.get('/edit/:id', function (req, res) {
+    app.get('/users/edit/:id', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'usuarios', function(usuario){
             if(usuario==null){
                 res.send({ Error: { status: 1, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
             }
             else {
-                res.render('edit.html', {usuario});
+                res.send(usuario);
             }
         });        
     })
     
-    app.post('/edit/:id', function (req, res) {
+    app.post('/users/edit/:id', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         let nuevoUsuario = req.body;
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 1, data: "Se ha producido un error al editar el usuario, intentelo de nuevo más tarde" } })
             else {
-                res.redirect('/');
+                res.send({msg: 'Usuario editado correctamente'})
             }
         })
     });
@@ -68,8 +66,7 @@ module.exports = function (app, gestorBD) {
             if (usuarios == null) {
                 res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
             } else {
-                console.log(usuarios)
-                res.render('index.html', { usuarios, title: 'CRUD de usuarios' }); // Accede a src/viwes y busca index.html
+                res.send(usuarios)
             }
         });
     });
