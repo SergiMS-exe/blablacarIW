@@ -40,7 +40,7 @@ module.exports = function (app) {
         });
     });
 
-    // Devuelve datos astrologicos (salida y puesta del sol, p.ej.) en un sitio concreto
+    // Devuelve datos astronomicos (salida y puesta del sol, p.ej.) en un sitio concreto
     app.get('/weather/astronomy/:location&:date', function (req, res){
         let url = 'https://api.weatherapi.com/v1/astronomy.json?key=' + API_KEY + '&q=' + req.params.location + '&dt=' + req.params.date;
 
