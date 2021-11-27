@@ -5,14 +5,14 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'usuarios', function(resultUser) {
             if (resultUser==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener el usuario, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener el usuario, intentelo de nuevo más tarde" } })
             else {
                 let query = { "pasajeros": gestorBD.mongo.ObjectID(req.params.id) };
                 gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
                     if (resultTravel==null)
-                        res.send({ Error: { status: 1, data: "Se ha producido un error al obtener los viajes del usuario, intentelo de nuevo más tarde" } })
+                        res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del usuario, intentelo de nuevo más tarde" } })
                     else
-                    res.render('viajespasajero.html', { resultUser, resultTravel, title: 'Viajes de pasajero' });
+                        res.send({status: 200, data: {pasajero: resultUser, viajes: resultTravel}});
                 });
             } 
         })
@@ -22,9 +22,9 @@ module.exports = function (app, gestorBD) {
     app.get('/listaviajes', function (req, res) {
         gestorBD.obtenerItem({}, 'viajes', function(viajes) {
             if (viajes==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener los viajes, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes, intentelo de nuevo más tarde" } })
             else {
-                res.render('listaviajes.html', { viajes, title: 'Lista de Viajes' })        
+                res.send({status: 200, data: {viajes: viajes}})        
             } 
         })
         
@@ -35,14 +35,14 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'usuarios', function(resultUser) {
             if (resultUser==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener el conductor, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener el conductor, intentelo de nuevo más tarde" } })
             else {
                 let query = { "id_conductor": usuario._id };
                 gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
                     if (resultTravel==null)
-                        res.send({ Error: { status: 1, data: "Se ha producido un error al obtener los viajes del conductor, intentelo de nuevo más tarde" } })
+                        res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del conductor, intentelo de nuevo más tarde" } })
                     else
-                        res.render('viajesconductor.html', { usuario, viajes, title: "Viajes con un conductor concreto" })
+                        res.send({status: 200, data: {conductor: usuario, viajes: viajes}})
                 });
             } 
         })
@@ -54,21 +54,21 @@ module.exports = function (app, gestorBD) {
         gestorBD.insertarItem(req.body, 'viajes', function(result){
             if (result == null){
                 console.log("WARN: Fallo al insertar un viaje.");
-                res.send({ Error: { status: 1, data: "Se ha producido un error al insertar el viaje, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al insertar el viaje, intentelo de nuevo más tarde" } })
             }else{
-                res.send({msg: 'Viaje insertado'});
+                res.send({status: 200, data:{msg: 'Viaje insertado'}});
             }
         })
     })
 
-    app.get('/travels/delete/:id', function (req, res) {
-        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+    app.post('/travels/delete', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'viajes', function(result){
             if (result==null){
-                res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el viaje, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al borrar el viaje, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send({msg: 'Viaje eliminado'});
+                res.send({status: 200, data:{msg: 'Viaje eliminado'}});
             }
         })
     });
@@ -77,10 +77,10 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'viajes', function(viaje){
             if(viaje==null){
-                res.send({ Error: { status: 1, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send(viaje);
+                res.send({status: 200, data:{viaje: viaje}});
             }
         });        
     })
@@ -90,9 +90,9 @@ module.exports = function (app, gestorBD) {
         let nuevoViaje = req.body;
         gestorBD.modificarItem(criterio, nuevoViaje, 'viajes', function(result){
             if (result==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al modificar el viaje, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al modificar el viaje, intentelo de nuevo más tarde" } })
             else {
-                res.send({msg: 'Editado correctamente'})
+                res.send({status: 200, data:{msg: 'Editado correctamente'}})
             }
         })
     });

@@ -3,9 +3,9 @@ module.exports = function (app, gestorBD) {
     app.get("/", function (req, res) {
         gestorBD.obtenerItem({}, 'usuarios', function (usuarios) {
             if (usuarios == null) {
-                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
             } else {
-                res.send(usuarios);
+                res.send({status: 200, data: {usuarios: usuarios}});
             }
         });
     });
@@ -15,10 +15,10 @@ module.exports = function (app, gestorBD) {
         gestorBD.insertarItem(req.body, 'usuarios', function (usuario) {
             if (usuario == null) {
                 console.log("WARN: Fallo al insertar un usuario. Email: " + req.body.email)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al insertar el usuario, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al insertar el usuario, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send({msg: 'Usuario añadido correctamente'})
+                res.send({status: 200, data: {msg: 'Usuario añadido correctamente'}})
             }
         });
     });
@@ -27,10 +27,10 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){
-                res.send({ Error: { status: 1, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send({msg: 'Usuario eliminado correctamente'})
+                res.send({status: 200, data: {msg: 'Usuario eliminado correctamente'}})
             }
         })
     });
@@ -39,11 +39,10 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerItem(criterio, 'usuarios', function(usuario){
             if(usuario==null){
-                res.send({ Error: { status: 1, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error inesperado, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send(usuario);
-            }
+                res.send({status: 200, data: {usuario: usuario}})            }
         });        
     })
     
@@ -52,9 +51,9 @@ module.exports = function (app, gestorBD) {
         let nuevoUsuario = req.body;
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
-                res.send({ Error: { status: 1, data: "Se ha producido un error al editar el usuario, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al editar el usuario, intentelo de nuevo más tarde" } })
             else {
-                res.send({msg: 'Usuario editado correctamente'})
+                res.send({status: 200, data: {msg: 'Usuario editado correctamente'}})
             }
         })
     });
@@ -64,9 +63,9 @@ module.exports = function (app, gestorBD) {
         let criterio = { $or: [{'nombre': {$regex: ".*"+query+".*"}}, {'apellido': {$regex: ".*"+query+".*"}}]}
         gestorBD.obtenerItem(criterio, 'usuarios', function(usuarios) {
             if (usuarios == null) {
-                res.send({ Error: { status: 1, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener la lista de usuarios, intentelo de nuevo más tarde" } })
             } else {
-                res.send(usuarios)
+                res.send({status: 200, data: {usuarios: usuarios}})
             }
         });
     });

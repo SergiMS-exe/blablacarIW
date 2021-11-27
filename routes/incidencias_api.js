@@ -1,5 +1,4 @@
-const https = require('https');
-module.exports = function (app) {
+module.exports = function (app, https) {
     //Datos abiertos de incidencias de la DGT. Solo aperecen incidencias que siguen activas
     //Da las incidencias según la comunidad autónoma.
     app.get('/incidencia/autonomia/:autonomia', function (req, res){
@@ -57,8 +56,4 @@ module.exports = function (app) {
             console.log("Error: " + err.message);
         });
     });
-
-
-
-
 }

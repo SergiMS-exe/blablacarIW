@@ -1,7 +1,6 @@
-const https = require('https');
 const API_KEY = '9316103ac6f44ce8b03103040212511';
 
-module.exports = function (app) {
+module.exports = function (app, https) {
     // Devuelve datos meteorologicos en el momento actual
     app.get('/weather/realtime/:location', function (req, res){
         let url = 'https://api.weatherapi.com/v1/current.json?key=' + API_KEY + '&q=' + req.params.location;
