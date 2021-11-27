@@ -37,12 +37,12 @@ module.exports = function (app, gestorBD) {
             if (resultUser==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al obtener el conductor, intentelo de nuevo más tarde" } })
             else {
-                let query = { "id_conductor": usuario._id };
+                let query = { "id_conductor": resultUser._id };
                 gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
                     if (resultTravel==null)
                         res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del conductor, intentelo de nuevo más tarde" } })
                     else
-                        res.send({status: 200, data: {conductor: usuario, viajes: viajes}})
+                        res.send({status: 200, data: {conductor: resultUser, viajes: resultTravel}})
                 });
             } 
         })
