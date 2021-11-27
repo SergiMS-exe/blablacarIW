@@ -23,8 +23,8 @@ module.exports = function (app, gestorBD) {
         });
     });
 
-    app.get('/users/delete/:id', function (req, res) {
-        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+    app.post('/users/delete/', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){
                 res.send({ Error: { status: 500, data: "Se ha producido un error al borrar el usuario, intentelo de nuevo más tarde" } })
@@ -46,8 +46,8 @@ module.exports = function (app, gestorBD) {
         });        
     })
     
-    app.post('/users/edit/:id', function (req, res) {
-        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
+    app.post('/users/edit', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         let nuevoUsuario = req.body;
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
