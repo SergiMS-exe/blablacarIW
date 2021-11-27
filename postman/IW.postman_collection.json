@@ -364,6 +364,11 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Viajes tienen como pasajero a 61965621b0454956d4935b3a\", () => {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  const viajes = responseJson.data.viajes;\r",
+									"  viajes.forEach(viaje => pm.expect(viaje.id_pasajeros).to.include(\"61965621b0454956d4935b3a\"));\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -386,7 +391,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "6195699249d6996a7733e49b"
+									"value": "61965621b0454956d4935b3a"
 								}
 							]
 						}
@@ -402,6 +407,11 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Viajes tienen como conductor a 6195699249d6996a7733e49b\", () => {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  const viajes = responseJson.data.viajes;\r",
+									"  viajes.forEach(viaje => pm.expect(viaje.id_conductor).to.be.eql(\"6195699249d6996a7733e49b\"));\r",
 									"});"
 								],
 								"type": "text/javascript"
