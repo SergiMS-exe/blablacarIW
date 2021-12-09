@@ -1,4 +1,4 @@
-<?php 
+<?php  
     session_start();
     $url = 'http://localhost:3000/users/delete';
     

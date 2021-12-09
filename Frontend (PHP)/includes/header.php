@@ -14,8 +14,5 @@
             <div class="logo">
                 <span>Logo</span>
             </div>
-            <div class="header-opciones">
-                <a href="crear_usuario.php" class="btn btn-primary">Crear usuario</a>
-            </div>
         </div>
     </header>
