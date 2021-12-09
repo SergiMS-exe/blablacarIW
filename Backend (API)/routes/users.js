@@ -24,6 +24,7 @@ module.exports = function (app, gestorBD) {
     });
 
     app.post('/users/delete', function (req, res) {
+        console.log(req.body);
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){

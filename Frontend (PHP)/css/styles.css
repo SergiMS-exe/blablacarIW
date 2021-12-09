@@ -1,0 +1,35 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+header {
+    padding: 1rem 3rem;
+    border-bottom: 1px solid black;
+    margin-bottom: 2rem;
+}
+
+.contenido-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenido-header a {
+    text-decoration: none;
+    color: blue;
+    cursor: pointer;
+}
+
+footer {
+    border-top: 1px solid black;
+    margin-top: 2rem;
+    padding: 1rem 3rem;
+}
