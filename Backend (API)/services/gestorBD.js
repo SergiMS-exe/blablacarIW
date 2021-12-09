@@ -59,7 +59,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                db.collection(collection).update(criterio, {$set: usuario}, function (err, result) {
+                db.collection(collection).updateOne(criterio, {$set: usuario}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {

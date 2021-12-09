@@ -24,7 +24,6 @@ module.exports = function (app, gestorBD) {
     });
 
     app.post('/users/delete', function (req, res) {
-        console.log(req.body);
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){
@@ -50,7 +49,7 @@ module.exports = function (app, gestorBD) {
     app.post('/users/edit', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         let nuevoUsuario = req.body;
-        console.log(nuevoUsuario);
+        delete nuevoUsuario['_id'];
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al editar el usuario, intentelo de nuevo más tarde" } })
