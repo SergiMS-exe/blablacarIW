@@ -33,7 +33,7 @@
     else {
         $res = file_get_contents("http://localhost:3000/users/edit/".$_GET['id']);
         $data = json_decode($res); 
-        include './includes/header.php';
+        include '../includes/header.php';
     }
 ?>
 
@@ -46,4 +46,4 @@
     <input type="submit" value="Editar">
 </form>
 
-<?php include './includes/footer.php' ?>
+<?php include '../includes/footer.php' ?>
