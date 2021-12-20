@@ -33,11 +33,11 @@
                         <th><?php echo $usuario->apellido; ?></th>
                         <form action="usuario/delete.php" method="POST">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
-                            <th><input type="submit" value="Eliminar"></th>
+                            <td><input type="submit" value="Eliminar"></td>
                         </form>
                         <form action="usuario/edit.php" method="GET">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
-                            <th><input type="submit" value="Editar"></th>
+                            <td><input type="submit" value="Editar"></td>
                         </form>
                     </tr>
                 
