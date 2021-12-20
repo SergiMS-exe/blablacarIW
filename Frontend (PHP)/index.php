@@ -14,7 +14,7 @@
 
 
     <div class="header-opciones">
-        <a href="crear_usuario.php" class="btn btn-primary">Crear usuario</a>
+        <a href="usuario/crear_usuario.php" class="btn btn-primary">Crear usuario</a>
     </div>
 
     <table>
@@ -28,11 +28,11 @@
                     <tr>
                         <th><?php echo $usuario->nombre; ?></th>
                         <th><?php echo $usuario->apellido; ?></th>
-                        <form action="delete.php" method="POST">
+                        <form action="usuario/delete.php" method="POST">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
                             <th><input type="submit" value="Eliminar"></th>
                         </form>
-                        <form action="edit.php" method="GET">
+                        <form action="usuario/edit.php" method="GET">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
                             <th><input type="submit" value="Editar"></th>
                         </form>

@@ -28,7 +28,7 @@
         
         $_SESSION['server_msg'] = $result->data->msg;
         
-        header('Location: index.php');
+        header('Location: ../index.php');
     }
     else {
         $res = file_get_contents("http://localhost:3000/users/edit/".$_GET['id']);
@@ -45,5 +45,7 @@
     <input value="<?php echo $data->data->usuario[0]->password?>" name="password">
     <input type="submit" value="Editar">
 </form>
+
+<a href="../index.php" class="btn btn-danger">Cancelar</a>
 
 <?php include '../includes/footer.php' ?>
