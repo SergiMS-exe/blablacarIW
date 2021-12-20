@@ -28,7 +28,7 @@
         
         $_SESSION['server_msg'] = $result->data->msg;
         
-        header('Location: ../index.php');
+        header('Location: index.php');
     }
     else {
         $res = file_get_contents("http://localhost:3000/users/edit/".$_GET['id']);
