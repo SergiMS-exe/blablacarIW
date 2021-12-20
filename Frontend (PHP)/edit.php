@@ -32,7 +32,7 @@
     }
     else {
         $res = file_get_contents("http://localhost:3000/users/edit/".$_GET['id']);
-        $data = json_decode($res);
+        $data = json_decode($res); 
         include './includes/header.php';
     }
 ?>

@@ -63,6 +63,7 @@ module.exports = {
                     if (err) {
                         funcionCallback(null);
                     } else {
+                        console.log(criterio)
                         funcionCallback(result);
                     }
                     db.close();
