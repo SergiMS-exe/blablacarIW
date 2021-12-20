@@ -43,4 +43,4 @@
 </form>
 
 
-<a href="index.php" class="btn btn-danger">Cancelar</a>
+<a href="../index.php" class="btn btn-danger">Cancelar</a>

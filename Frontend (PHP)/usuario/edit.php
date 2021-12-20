@@ -46,4 +46,6 @@
     <input type="submit" value="Editar">
 </form>
 
+<a href="../index.php" class="btn btn-danger">Cancelar</a>
+
 <?php include '../includes/footer.php' ?>
