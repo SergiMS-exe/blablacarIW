@@ -10,24 +10,24 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                db.collection(collection).find(criterio).toArray(function (err, usuarios) {
+                db.collection(collection).find(criterio).toArray(function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     }
                     else {
-                        funcionCallback(usuarios);
+                        funcionCallback(result);
                     }
                     db.close();
                 });
             }
         });
     },
-    insertarItem: function (usuario, collection, funcionCallback) {
+    insertarItem: function (item, collection, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                db.collection(collection).insert(usuario, function (err, result) {
+                db.collection(collection).insert(item, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -54,16 +54,15 @@ module.exports = {
             }
         });
     },
-    modificarItem: function (criterio, usuario, collection, funcionCallback) {
+    modificarItem: function (criterio, item, collection, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                db.collection(collection).updateOne(criterio, {$set: usuario}, function (err, result) {
+                db.collection(collection).update(criterio, {$set: item}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        console.log(criterio)
                         funcionCallback(result);
                     }
                     db.close();

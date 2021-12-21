@@ -61,7 +61,7 @@ module.exports = function (app, gestorBD) {
         })
     })
 
-    app.post('/travels/delete', function (req, res) {
+    app.delete('/travels/delete', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'viajes', function(result){
             if (result==null){
@@ -85,7 +85,7 @@ module.exports = function (app, gestorBD) {
         });        
     })
     
-    app.post('/travels/edit/:id', function (req, res) {
+    app.put('/travels/edit/:id', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         let nuevoViaje = req.body;
         gestorBD.modificarItem(criterio, nuevoViaje, 'viajes', function(result){

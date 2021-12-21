@@ -23,7 +23,7 @@ module.exports = function (app, gestorBD) {
         });
     });
 
-    app.post('/users/delete', function (req, res) {
+    app.delete('/users/delete', function (req, res) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'usuarios', function(result){
             if (result==null){
@@ -32,7 +32,7 @@ module.exports = function (app, gestorBD) {
             else {
                 res.send({status: 200, data: {msg: 'Usuario eliminado correctamente'}})
             }
-        })
+        });
     });
 
     app.get('/users/edit/:id', function (req, res) {
@@ -46,17 +46,16 @@ module.exports = function (app, gestorBD) {
         });        
     })
     
-    app.post('/users/edit', function (req, res) {
-        let criterio = {"_id": gestorBD.mongo.ObjectID(req.body._id)};
+    app.put('/users/edit/:id', function (req, res) {
+        let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         let nuevoUsuario = req.body;
-        delete nuevoUsuario['_id'];
         gestorBD.modificarItem(criterio, nuevoUsuario, 'usuarios', function(result){
             if (result==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al editar el usuario, intentelo de nuevo más tarde" } })
             else {
                 res.send({status: 200, data: {msg: 'Usuario editado correctamente'}})
             }
-        })
+        });
     });
 
     app.get('/findUser', function(req, res){

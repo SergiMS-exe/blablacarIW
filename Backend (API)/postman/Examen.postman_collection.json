@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "bace37db-17df-41a9-9856-830f14165acd",
+		"name": "Examen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"61b0d649a601484d606c6162\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/datos/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"datos",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
