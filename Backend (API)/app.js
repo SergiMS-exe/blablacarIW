@@ -27,7 +27,7 @@ require("./routes/users")(app, gestorBD);  // (app, param1, param2, etc.)
 require("./routes/travels")(app, gestorBD);
 require("./routes/wheater_api")(app, https);
 require("./routes/incidencias_api")(app, https);
-
+require("./routes/imagenes")(app, https);
 
 //Controlador en caso de 404
 app.get('*',function (req, res,next) {
