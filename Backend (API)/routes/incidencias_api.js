@@ -32,6 +32,7 @@ module.exports = function (app, https) {
 
             resp.on('end', () => {
                res.send(data);
+               
             });
         }).on("error", (err) => {
             console.log("Error: " + err.message);
