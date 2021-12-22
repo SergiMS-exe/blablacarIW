@@ -14,7 +14,6 @@ app.set('views', path.join(__dirname, 'views')); // Para definir la ruta de las 
 
 // Middlewares
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false})); // Para que lo que se nos envíe desde el cliente sea JSON
 app.use(express.json());
 
 
