@@ -8,13 +8,23 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, true);
 
-        $data = array(
-            "id_pasajeros" => $_POST['id_pasajeros'],
-            "fecha_salida" => $_POST['fecha_salida'],
-            "hora_salida" => $_POST['hora_salida'],            
-            "lugar_salida" => $_POST['lugar_salida'],
-            "lugar_llegada" => $_POST['lugar_llegada']
-        );
+        if(!empty($_POST['id_pasajeros'])){
+            $data = array(
+                "id_pasajeros" => $_POST['id_pasajeros'],
+                "fecha_salida" => $_POST['fecha_salida'],
+                "hora_salida" => $_POST['hora_salida'],            
+                "lugar_salida" => $_POST['lugar_salida'],
+                "lugar_llegada" => $_POST['lugar_llegada']
+            );
+        } else {
+            $data = array(
+                "id_pasajeros" => [],
+                "fecha_salida" => $_POST['fecha_salida'],
+                "hora_salida" => $_POST['hora_salida'],            
+                "lugar_salida" => $_POST['lugar_salida'],
+                "lugar_llegada" => $_POST['lugar_llegada']
+            );
+        }
 
         $json = json_encode($data);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
