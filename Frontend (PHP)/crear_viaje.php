@@ -9,7 +9,7 @@
         curl_setopt($ch, CURLOPT_POST, true);
 
         $data = array(
-            "id_pasajeros" => array(),
+            "id_pasajeros" => [],
             "id_conductor" => $_POST['id_conductor'],
             "fecha_salida" => $_POST['fecha_salida'],
             "hora_salida" => $_POST['hora_salida'],            
@@ -17,11 +17,11 @@
             "lugar_llegada" => $_POST['lugar_llegada']
         );
 
-        $json = http_build_query($data);
+        $json = json_encode($data);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
         curl_close($ch); 
