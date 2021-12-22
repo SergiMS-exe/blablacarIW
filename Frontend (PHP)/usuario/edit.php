@@ -7,13 +7,18 @@
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        $data = array(
-            "nombre" => $_POST['nombre'],
-            "apellido" => $_POST['apellido'],            
-            "email" => $_POST['email'],
-            "password" => $_POST['password'],
-            "foto" => $_POST['foto']
-        );
+        if ($_POST['modo'] === '1') {
+            $data = array(
+                "nombre" => $_POST['nombre'],
+                "apellido" => $_POST['apellido'],            
+                "email" => $_POST['email'],
+                "password" => $_POST['password'],
+            );
+        } else {
+            $data = array(
+                "foto" => $_POST['foto']
+            );
+        }
 
         $json = json_encode($data);
 
@@ -43,6 +48,7 @@
     <input value="<?php echo $data->data->usuario[0]->apellido?>" name="apellido">
     <input value="<?php echo $data->data->usuario[0]->email?>" name="email">
     <input value="<?php echo $data->data->usuario[0]->password?>" name="password">
+    <input type="hidden" name="modo" value="1">
     <input type="submit" value="Editar">
 </form>
 

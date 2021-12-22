@@ -33,6 +33,7 @@ if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type']
     <form action="../usuario/edit.php" method="POST">
         <input value="<?php echo $id?>" name="id" type="hidden">
         <input value="<?php echo $url?>" name="foto" type="hidden">
+        <input type="hidden" name="modo" value="2">
         <input type="submit" value="Confirmar">
     </form>
     <form action="../usuario/edit.php" method="GET">
