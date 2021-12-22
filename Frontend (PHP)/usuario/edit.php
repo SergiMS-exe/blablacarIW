@@ -13,7 +13,8 @@
             "nombre" => $_POST['nombre'],
             "apellido" => $_POST['apellido'],            
             "email" => $_POST['email'],
-            "password" => $_POST['password']
+            "password" => $_POST['password'],
+            "foto" => $_POST['foto']
         );
 
         $json = http_build_query($data);
@@ -47,5 +48,15 @@
 </form>
 
 <a href="../index.php" class="btn btn-danger">Cancelar</a>
+
+<div class="box">
+        <form enctype="multipart/form-data" action="../funciones/enviar_imagen.php" method="POST">
+            <h3>Subir imagen</h3>
+            <input type="file" name="imagen" type="image/jpeg, imagen/jpg, imagen/png">
+            <input value="<?php echo $data->data->usuario[0]->_id?>" id="id" name="id" type="hidden">
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    
 
 <?php include '../includes/footer.php' ?>

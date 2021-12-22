@@ -1,5 +1,5 @@
 <div class="box">
-    <form action="./apiIncidencias/buscador_incidencias.php" method="GET">
+    <form action="./servicios/apiIncidencias/buscador_incidencias.php" method="GET">
         <select name="provincia" class="form-control">
             <option value="">Elige Provincia</option>
             <option value="Álava/Araba">Álava/Araba</option>

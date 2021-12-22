@@ -36,6 +36,7 @@ footer {
 
 .box {
     border: solid 1px black;
+    margin: 1rem 0;
 }
 
 table {
