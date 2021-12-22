@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     $res = file_get_contents("http://localhost:3000/");
     $data = json_decode($res);
@@ -43,5 +44,7 @@
                 
             <?php } ?>
     </table>
+
+    <?php include './includes/buscador_incidencias.php' ?>
 
     <?php include './includes/footer.php' ?>
