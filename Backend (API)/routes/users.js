@@ -47,6 +47,7 @@ module.exports = function (app, gestorBD) {
     })
     
     app.post('/users/edit', function (req, res) {
+        console.log(req.body);
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body._id)};
         let nuevoUsuario = req.body;
         delete nuevoUsuario['_id'];
