@@ -20,7 +20,6 @@
         $json = json_encode($data);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);

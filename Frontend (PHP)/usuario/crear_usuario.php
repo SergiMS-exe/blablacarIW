@@ -15,10 +15,10 @@
             "password" => $_POST['password']
         );
 
-        $json = http_build_query($data);
+        $json = json_encode($data);
 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
