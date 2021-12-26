@@ -13,7 +13,16 @@
     include './includes/header.php';
 ?>
 
+    <?php include "apiTiempo/index.html"?>
 
+    <div class="box">
+        <?php include './includes/buscador_incidencias.php' ?>
+        <div class="header-opciones">
+            <a href="incidencias.php" class="btn btn-primary">Mapa de incidencias</a>
+        </div>
+    </div>
+
+    <h1>Usuarios</h1>
 
     <div class="header-opciones">
         <a href="usuario/crear_usuario.php" class="btn btn-primary">Crear usuario</a>
@@ -28,8 +37,8 @@
                 foreach ($data->data->usuarios as $usuario){ ?>
                 
                     <tr>
-                        <th><?php echo $usuario->nombre; ?></th>
-                        <th><?php echo $usuario->apellido; ?></th>
+                        <td><?php echo $usuario->nombre; ?></td>
+                        <td><?php echo $usuario->apellido; ?></td>
                         <form action="usuario/delete.php" method="POST">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
                             <th><input type="submit" value="Eliminar"></th>
@@ -38,14 +47,16 @@
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
                             <th><input type="submit" value="Editar"></th>
                         </form>
+                        <form action="crear_viaje.php" method="GET">
+                            <input type="hidden" value="<?php echo $usuario->_id?>" name="id">
+                            <th><input type="submit" value="Añadir viaje"></th>
+                        </form>
                     </tr>
                 
             <?php } ?>
     </table>
 
-    <div class="header-opciones">
-        <a href="crear_viaje.php" class="btn btn-primary">Crear viaje</a>
-    </div>
+    <h1>Viajes</h1>
 
     <table>
         <tr>
@@ -56,18 +67,13 @@
             <th>Lugar Llegada</th>
         </tr>
             <?php 
-                foreach ($dataViajes->data->viajes as $viaje){ ?>
-                    <?php
-                        $resAux = file_get_contents("http://localhost:3000/users/edit/".$viaje->id_conductor);
-                        $dataAux = json_decode($resAux);
-                        $conductor = $dataAux->data->usuario[0];
-                    ?>                
+                foreach ($dataViajes->data->viajes as $viaje){ ?>                
                     <tr>
-                        <th><?php echo $conductor->nombre; ?></th>
-                        <th><?php echo $viaje->fecha_salida; ?></th>
-                        <th><?php echo $viaje->hora_salida; ?></th>
-                        <th><?php echo $viaje->lugar_salida; ?></th>
-                        <th><?php echo $viaje->lugar_llegada; ?></th>
+                        <td><?php echo $viaje->nombre_conductor; ?></td>
+                        <td><?php echo $viaje->fecha_salida; ?></td>
+                        <td><?php echo $viaje->hora_salida; ?></td>
+                        <td><?php echo $viaje->lugar_salida; ?></td>
+                        <td><?php echo $viaje->lugar_llegada; ?></td>
                         <form action="delete_viaje.php" method="POST">
                             <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
                             <th><input type="submit" value="Eliminar"></th>
@@ -80,12 +86,5 @@
                 
             <?php } ?>
     </table>
-
-    <div class="header-opciones">
-        <a href="incidencias.php" class="btn btn-primary">Mapa de incidencias</a>
-    </div>
-
-
-    <?php include './includes/buscador_incidencias.php' ?>
 
     <?php include './includes/footer.php' ?>
