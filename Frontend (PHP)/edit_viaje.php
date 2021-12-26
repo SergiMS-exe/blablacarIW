@@ -40,6 +40,8 @@
     else {
         $res = file_get_contents("http://localhost:3000/travels/edit/".$_GET['id']);
         $data = json_decode($res); 
+        $resUsers = file_get_contents("http://localhost:3000/");
+        $dataUsers = json_decode($resUsers);
         include './includes/header.php';
     }
 ?>
@@ -48,6 +50,7 @@
     <input value="<?php echo $data->data->viaje[0]->_id?>" name="id" type="hidden">
     <?php
     if(!empty($data->data->viaje[0]->id_pasajeros)){
+        echo "Lista de pasajeros:";
         foreach($data->data->viaje[0]->id_pasajeros as $pasajero){
             if(!empty($pasajero)){
                 $resAux = file_get_contents("http://localhost:3000/users/edit/".$pasajero);
@@ -59,7 +62,18 @@
         } 
     } else{
         echo "No hay pasajeros";
-    } ?>
+    }
+    
+    echo "Posibles pasajeros:";
+
+    foreach($dataUsers->data->usuarios as $usuario){
+        if(!in_array($usuario->_id, $data->data->viaje[0]->id_pasajeros) && $data->data->viaje[0]->id_conductor != $usuario->_id){
+            ?>
+            <input type="checkbox" name="id_pasajeros[]" value="<?php echo $usuario->_id ?>" > <?php echo $usuario->nombre. " ".$usuario->apellido; ?> <br>
+        <?php    
+        } 
+    }
+    ?>
 
 
     <input value="<?php echo $data->data->viaje[0]->fecha_salida?>" name="fecha_salida">
