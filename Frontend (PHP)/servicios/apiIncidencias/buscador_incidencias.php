@@ -25,10 +25,10 @@ if ($busqueda !== ''){
         $_SESSION['incidencias'] = null;
     }
 
-    header('Location: ../index.php');
+    header('Location: ../../index.php');
 }else{
     $_SESSION['incidencias'] = null;
-    header('Location: ../index.php');
+    header('Location: ../../index.php');
 }
 
 

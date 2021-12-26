@@ -10,13 +10,14 @@
         unset($_SESSION['server_msg']);
     }
 
-    include './includes/header.php';
+    include 'includes/header.php';
 ?>
 
     <?php include "apiTiempo/index.html"?>
 
+    <?php include 'includes/buscador_incidencias.php' ?>
+
     <div class="box">
-        <?php include './includes/buscador_incidencias.php' ?>
         <div class="header-opciones">
             <a href="incidencias.php" class="btn btn-primary">Mapa de incidencias</a>
         </div>
@@ -87,4 +88,4 @@
             <?php } ?>
     </table>
 
-    <?php include './includes/footer.php' ?>
+    <?php include 'includes/footer.php' ?>
