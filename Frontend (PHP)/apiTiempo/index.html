@@ -1,17 +1,17 @@
     <h1>Tiempo</h1>
-    <form action="realtime.php" method="GET">
-        <input type="text" name="location"/>
+    <form action="apiTiempo/realtime.php" method="GET">
+        <input type="text" name="location" placeholder="Localización"/>
         <input type="submit" value="Buscar tiempo actual"/>
     </form>
 
-    <form action="forecast.php" method="GET">
-        <input type="text" name="location"/>
-        <input type="text" name="days"/>
+    <form action="apiTiempo/forecast.php" method="GET">
+        <input type="text" name="location" placeholder="Localización"/>
+        <input type="text" name="days" placeholder="Numero de dias desde hoy"/>
         <input type="submit" value="Buscar prediccion del tiempo"/>
     </form>
 
-    <form action="astronomy.php" method="GET">
-        <input type="text" name="location"/>
-        <input type="text" name="day"/>
-        <input type="submit" value="Buscar prediccion del tiempo"/>
+    <form action="apiTiempo/astronomy.php" method="GET">
+        <input type="text" name="location" placeholder="Localización"/>
+        <input type="text" name="day" placeholder="Dia a Buscar"/>
+        <input type="submit" value="Buscar prediccion astronómica"/>
     </form>
