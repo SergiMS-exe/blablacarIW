@@ -51,6 +51,7 @@
     <?php
     if(!empty($data->data->viaje[0]->id_pasajeros)){
         echo "Lista de pasajeros:";
+        echo "<br>";
         foreach($data->data->viaje[0]->id_pasajeros as $pasajero){
             if(!empty($pasajero)){
                 $resAux = file_get_contents("http://localhost:3000/users/edit/".$pasajero);
@@ -62,10 +63,11 @@
         } 
     } else{
         echo "No hay pasajeros";
+        echo "<br>";
     }
     
     echo "Posibles pasajeros:";
-
+    echo "<br>";
     foreach($dataUsers->data->usuarios as $usuario){
         if(!in_array($usuario->_id, $data->data->viaje[0]->id_pasajeros) && $data->data->viaje[0]->id_conductor != $usuario->_id){
             ?>
