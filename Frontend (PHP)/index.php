@@ -1,7 +1,7 @@
 <?php
     session_start();
     $res = file_get_contents("http://localhost:3000/");
-    $data = json_decode($res);
+    $dataUsers = json_decode($res);
     $resViajes = file_get_contents("http://localhost:3000/listaviajes");
     $dataViajes = json_decode($resViajes);
 
@@ -35,7 +35,7 @@
             <th>Apellido</th>
         </tr>
             <?php 
-                foreach ($data->data->usuarios as $usuario){ ?>
+                foreach ($dataUsers->data->usuarios as $usuario){ ?>
                 
                     <tr>
                         <td><?php echo $usuario->nombre; ?></td>
