@@ -42,6 +42,8 @@
     }
 ?>
 
+<h1>Editar usuario</h1>
+
 <form action="edit.php" method="POST">
     <input value="<?php echo $data->data->usuario[0]->_id?>" name="id" type="hidden">
     <input value="<?php echo $data->data->usuario[0]->nombre?>" name="nombre">
@@ -53,15 +55,15 @@
 </form>
 
 <a href="../index.php" class="btn btn-danger">Cancelar</a>
-
+<br/>
 <div class="box">
-        <form enctype="multipart/form-data" action="../funciones/enviar_imagen.php" method="POST">
-            <h3>Subir imagen</h3>
-            <input type="file" name="imagen" type="image/jpeg, imagen/jpg, imagen/png">
-            <input value="<?php echo $data->data->usuario[0]->_id?>" id="id" name="id" type="hidden">
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
+    <form enctype="multipart/form-data" action="../funciones/enviar_imagen.php" method="POST">
+        <h3>Subir imagen</h3>
+        <input type="file" name="imagen" type="image/jpeg, image/jpg, image/png">
+        <input value="<?php echo $data->data->usuario[0]->_id?>" id="id" name="id" type="hidden">
+        <input type="submit" value="Enviar">
+    </form>
+</div>
     
 
 <?php include '../includes/footer.php' ?>

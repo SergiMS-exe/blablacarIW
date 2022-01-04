@@ -4,7 +4,13 @@ $file = $_FILES['imagen'];
 
 $id = $_POST['id'];
 
-if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type'] == 'image/jpeg'){
+
+$file_size = $file['size'];
+
+if (($file_size > 2*1024*1024)){      
+    echo '<p>File too large. File must be less than 2 MB.</p>'; 
+    
+} else if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type'] == 'image/jpeg'){
     $filename= $file['tmp_name'];
     $client_id = "531facc897ea14b"; // AQUI SU CLIENT ID
     $handle = fopen($filename, "r");
@@ -24,7 +30,7 @@ if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type']
     $pms = json_decode($out,true);
     $url="";
     
-    if( isset( $pms['data']['link']; ) ){
+    if( isset( $pms['data']['link'] ) ){
         $url=$pms['data']['link'];
      }
     
@@ -48,6 +54,7 @@ if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type']
     </form>
         <?php
     }else{
+     echo $pms;
      echo "<h2>Ocurrió un problema :(</h2>";
      echo $pms['data']['error'];  
     } 
