@@ -9,7 +9,7 @@
         echo $_SESSION['server_msg'];
         unset($_SESSION['server_msg']);
     }
-
+    error_reporting(E_ERROR | E_PARSE);
     include 'includes/header.php';
 ?>
 
@@ -31,6 +31,7 @@
 
     <table>
         <tr>
+            <th></th>
             <th>Nombre</th>
             <th>Apellido</th>
         </tr>
@@ -38,6 +39,10 @@
                 foreach ($dataUsers->data->usuarios as $usuario){ ?>
                 
                     <tr>
+                        <td><?php if ($usuario->foto==null)
+                                    echo "<img src='https://acortar.link/mZkcJS' style='width:30px;height:30px;'?></td>";
+                                  else
+                                    echo "<img src='".$usuario->foto."' style='width:30px;height:30px;'?></td>";?>
                         <td><?php echo $usuario->nombre; ?></td>
                         <td><?php echo $usuario->apellido; ?></td>
                         <form action="usuario/delete.php" method="POST">
