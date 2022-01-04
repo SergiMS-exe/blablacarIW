@@ -23,10 +23,12 @@ if($file['type'] == 'image/jpg' || $file['type'] == 'image/png' || $file['type']
     curl_close ($curl);
     $pms = json_decode($out,true);
     $url="";
-    set_error_handler(function() { /* ignore errors */ });
-    dns_get_record();
-    $url=$pms['data']['link'];
-    restore_error_handler();
+    
+    if( isset( $pms['data']['link']; ) ){
+        $url=$pms['data']['link'];
+     }
+    
+    
 
 
     if($url!=""){
