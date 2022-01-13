@@ -2,18 +2,31 @@ const { query } = require("express");
 
 module.exports = function (app, gestorBD) {
     
-    app.get('/conversacion/:id1/id2'), function(req, res) {
+    app.get('/conversacion', function(req, res) {
         
-        let criterio = {"participantes": req.params.id1};
+        let criterio = {$and: [{"participantes": req.query.id1}, {"participantes": req.query.id2}]};
+        
         gestorBD.obtenerItem(criterio, 'conversaciones', function(resultConversation)
         {
             if (resultConversation==null)
-                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener las conversaciones, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener la conversacion, intentelo de nuevo más tarde" } })
             else {
-                res.send({status: 200, data: {conversaciones: resultConversation}});
+                console.log(resultConversation[0]._id);
+                var string = "" + resultConversation[0]._id;
+                //res.send({status: 200, data: {conversacion: resultConversation}});
+                let criterio2 = {"conversacion": string}
+                
+                gestorBD.obtenerItem(criterio2, 'mensajes', function(resultMensajes)
+                {
+                    if (resultMensajes==null)
+                    res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los mensajes, intentelo de nuevo más tarde" } })
+                    else {
+                        res.send({status: 200, data: {conversacion: resultConversation, mensajes: resultMensajes}});
+                    }
+                })
             }
         })
-    }
+    })
 
     app.get('/conversaciones/:id', function (req, res) {
         let criterio = {"participantes": req.params.id };
