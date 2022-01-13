@@ -92,5 +92,10 @@
                 
             <?php } ?>
     </table>
+    
+    <form action="mensajeria/lista_conversaciones.php" method="GET">
+        <input type="hidden" value="6195699249d6996a7733e49b" name="id">    
+        <th><input type="submit" value="Ver Conversaciones"></th>
+    </form>
 
     <?php include 'includes/footer.php' ?>
