@@ -16,6 +16,7 @@ module.exports = function (app, gestorBD) {
                 //res.send({status: 200, data: {conversacion: resultConversation}});
                 let criterio2 = {"conversacion": string}
                 
+
                 gestorBD.obtenerItem(criterio2, 'mensajes', function(resultMensajes)
                 {
                     if (resultMensajes==null)
@@ -49,7 +50,7 @@ module.exports = function (app, gestorBD) {
                 let query = { "_id": {$in: usuarios_objectsids }};
                 gestorBD.obtenerItem(query, 'usuarios', function(resultUsers){
                     if (resultUsers==null)
-                        res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del usuario, intentelo de nuevo más tarde" } })
+                        res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los usuarios, intentelo de nuevo más tarde" } })
                     else
                         res.send({status: 200, data: {usuarios: resultUsers}});
                 });
@@ -72,10 +73,10 @@ module.exports = function (app, gestorBD) {
         gestorBD.insertarItem(req.body, 'conversacion', function (conversacion) {
             if (conversacion == null) {
                 console.log("WARN: Fallo al insertar un conversacion. Email: " + req.body.email)
-                res.send({ Error: { status: 500, data: "Se ha producido un error al insertar el conversacion, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al insertar la conversacion, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send({status: 200, data: {msg: 'conversacion añadido correctamente'}})
+                res.send({status: 200, data: {msg: 'conversacion añadida correctamente'}})
             }
         });
     });
@@ -84,10 +85,10 @@ module.exports = function (app, gestorBD) {
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.body.id)};
         gestorBD.eliminarItem(criterio, 'conversaciones', function(result){
             if (result==null){
-                res.send({ Error: { status: 500, data: "Se ha producido un error al borrar el conversacion, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al borrar la conversacion, intentelo de nuevo más tarde" } })
             }
             else {
-                res.send({status: 200, data: {msg: 'conversacion eliminado correctamente'}})
+                res.send({status: 200, data: {msg: 'conversacion eliminada correctamente'}})
             }
         })
     });
@@ -109,9 +110,9 @@ module.exports = function (app, gestorBD) {
         let nuevoMensaje = req.body;
         gestorBD.modificarItem(criterio, nuevoMensaje, 'conversacion', function(result){
             if (result==null)
-                res.send({ Error: { status: 500, data: "Se ha producido un error al editar el conversacion, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al editar la conversacion, intentelo de nuevo más tarde" } })
             else {
-                res.send({status: 200, data: {msg: 'conversacion editado correctamente'}})
+                res.send({status: 200, data: {msg: 'conversacion editada correctamente'}})
             }
         })
     });

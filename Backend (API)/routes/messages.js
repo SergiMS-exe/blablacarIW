@@ -1,24 +1,6 @@
 module.exports = function (app, gestorBD) {
     
-    app.get('/conversaciones/:id', function (req, res) {
-        let criterio = {"from": gestorBD.mongo.ObjectID(req.params.id), "to": gestorBD.mongo.ObjectID(req.params.id)};
-        gestorBD.obtenerItem(criterio, 'mensajes', function(resultUser) {
-            if (resultUser==null)
-                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los mensajes, intentelo de nuevo más tarde" } })
-            else {
-                
-                res.send({status: 200, data: {mensajes: mensajes}});
-                /*
-                let query = { "id_pasajeros": req.params.id };
-                gestorBD.obtenerItem(query, 'viajes', function(resultTravel){
-                    if (resultTravel==null)
-                        res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los viajes del usuario, intentelo de nuevo más tarde" } })
-                    else
-                        res.send({status: 200, data: {pasajero: resultUser, viajes: resultTravel}});
-                });*/
-            } 
-        })
-    })
+   
 
     app.get("/", function (req, res) {
         gestorBD.obtenerItem({}, 'mensajes', function (mensajes) {
@@ -34,7 +16,7 @@ module.exports = function (app, gestorBD) {
         //TODO hacer validador y encriptar la contraseña
         gestorBD.insertarItem(req.body, 'mensaje', function (mensaje) {
             if (mensaje == null) {
-                console.log("WARN: Fallo al insertar un mensaje. Email: " + req.body.email)
+                console.log("WARN: Fallo al insertar un mensaje")
                 res.send({ Error: { status: 500, data: "Se ha producido un error al insertar el mensaje, intentelo de nuevo más tarde" } })
             }
             else {
