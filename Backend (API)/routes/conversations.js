@@ -1,17 +1,34 @@
+const { query } = require("express");
+
 module.exports = function (app, gestorBD) {
     
+    app.get('/conversacion/:id1/id2'), function(req, res) {
+        
+        let criterio = {"participantes": req.params.id1};
+        gestorBD.obtenerItem(criterio, 'conversaciones', function(resultConversation)
+        {
+            if (resultConversation==null)
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener las conversaciones, intentelo de nuevo más tarde" } })
+            else {
+                res.send({status: 200, data: {conversaciones: resultConversation}});
+            }
+        })
+    }
+
     app.get('/conversaciones/:id', function (req, res) {
         let criterio = {"participantes": req.params.id };
         gestorBD.obtenerItem(criterio, 'conversaciones', function(resultConversation) {
             if (resultConversation==null)
-                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los conversaciones, intentelo de nuevo más tarde" } })
+                res.send({ Error: { status: 500, data: "Se ha producido un error al obtener las conversaciones, intentelo de nuevo más tarde" } })
             else {
                 var usuarios = [];
                 resultConversation.forEach(function(conversacion) {
+                    console.log(conversacion.participantes[0]);
+                    console.log(req.params.id);
                     if (conversacion.participantes[0] == req.params.id)
                         usuarios.push(conversacion.participantes[1]);
                     else {
-                        usuarios.push(conversacion.participantes[1]);
+                        usuarios.push(conversacion.participantes[0]);
                     }
                 });
                 var usuarios_objectsids = usuarios.map(function(user) { return gestorBD.mongo.ObjectID(user)})
