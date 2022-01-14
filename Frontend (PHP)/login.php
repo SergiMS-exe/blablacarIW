@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $data = file_get_contents("http://localhost:3000/findUserByEmail/" . $_POST['email']);
+    $user = json_decode($data);
+
+    if (!empty($user->data->usuarios)){
+        //TO-DO: Comprobacion del password
+        unset($user->data->usuarios[0]->password);
+        $_SESSION['usuario'] = $user->data->usuarios[0]; 
+        $_SESSION['login'] = true;
+        header('Location: ./index.php');
+    }else{
+        echo "El usuario no existe";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +33,7 @@
     <div class="login-box">
         <div class="login-card">
             <p class="login-text">Inicio de sesión</p>
-            <form action="servicios/google/login.php">
+            <form action="login.php" method="POST">
                 <div class="login-inputs">
                     <div class="login-input">
                         <label for="email">Email</label>
@@ -30,7 +50,7 @@
                     <button onclick="window.location.href='./servicios/google/login.php'" class="button red-button">Google</a>
                 </div>    
             </form>
-            <a href="#">Registrarse</a> 
+            <a href="./usuario/crear_usuario.php">Registrarse</a> 
         </div>
     </div>
 </body>

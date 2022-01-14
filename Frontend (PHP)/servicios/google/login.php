@@ -23,9 +23,16 @@ if(isset($_GET['code'])){
     $gauth = new Google_Service_Oauth2($client);
     $google_info = $gauth->userinfo->get();
 
+    $usuario = array(
+        "nombre" => $google_info->givenName,
+        "apellido" => $google_info->familyName,
+        "email" => $google_info->email
+    );
+
     // Almaceno en la sesión el login
     $_SESSION['login'] = true;
-    $_SESSION['google_email'] = $google_info->email;
+    $_SESSION['google_login'] = true;
+    $_SESSION['usuario'] = $usuario;
 
     // Redirijo a index
     header('Location: /index.php');

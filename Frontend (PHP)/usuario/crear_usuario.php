@@ -26,6 +26,9 @@
         $result = json_decode($output);
         
         $_SESSION['server_msg'] = $result->data->msg;
+        $_SESSION['login'] = true;
+        unset($user->data->usuarios[0]->password);
+        $_SESSION['usuario'] = $data;
         
         header('Location: ../index.php');
     }
