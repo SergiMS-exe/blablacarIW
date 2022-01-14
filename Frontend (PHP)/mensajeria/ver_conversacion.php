@@ -8,18 +8,20 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, true);
 
+        $aux = $_POST['from'];
+        $aux2 = $_POST['to'];
+
         $data = array(
-            "from" => $_POST['from'],
-            "to" => $_POST['to'],
+            "from" => $aux,
+            "to" => $aux2,
             "texto" => $_POST['msgTexto'],            
             "conversacion" => $_POST['id_conversacion'],
-            //"lugar_llegada" => $_POST['lugar_llegada']
         );
 
         $json = json_encode($data);
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));      
 
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -27,26 +29,21 @@
         $result = json_decode($output);
 
         $_SESSION['server_msg'] = $result->data->msg;
-        
-        header('Location: ../index.php');
+        header('Location: ver_conversacion.php?id_ajeno='.$aux2.'&id_local='.$aux);
+    } else{
+        $res = file_get_contents("http://localhost:3000/conversacion?id1=".$_GET['id_local']."&id2=".$_GET['id_ajeno']);
+        $data = json_decode($res);
+        $resUser = file_get_contents("http://localhost:3000/users/edit/".$_GET['id_ajeno']);
+        $dataUser = json_decode($resUser);
     }
-    $res = file_get_contents("http://localhost:3000/conversacion?id1=".$_GET['id_local']."&id2=".$_GET['id_ajeno']);
-    $data = json_decode($res);
-    $resUser = file_get_contents("http://localhost:3000/users/edit/".$_GET['id_emisor']);
-    $dataUser = json_decode($res);
-    
-    // $resViajes = file_get_contents("http://localhost:3000/listaviajes");
-    // $dataViajes = json_decode($resViajes);
-    $usuarioajeno = $data->data->usuarios[0];
-    if ($data->data->usuarios[0]->_id == "61d4499da80ea85a20f949ed")
-    {
-        $usuarioajeno = $data->data->usuarios[1];
-    }
+
 ?>
 
-<h1 align="center">Conversación con <?php echo $usuarioajeno->nombre;?></h1>
+<head><link rel="stylesheet" href="../css/styles.css"></head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<h1 align="center">Conversación con <?php echo $dataUser->data->usuario[0]->nombre." ".$dataUser->data->usuario[0]->apellido;?></h1>
 
-<table width="75%" align="center">
+<table style="width:60%" align="center">
     
             <?php 
                 foreach ($data->data->mensajes as $mensaje){ ?>                
@@ -61,14 +58,11 @@
                     </tr>
                 
             <?php } ?>
-            <tr>
-                <h1><?php echo $data->data->conversacion[0]->_id ?></h1>
-            <form action="ver_conversacion.php" method="POST">
+    </table>
+    <form action="ver_conversacion.php" method="POST" align="center">
                 <input type="text" id="msgTexto" name="msgTexto">
                 <input type="hidden" value="<?php echo $_GET['id_local']?>" name="from">
                 <input type="hidden" value="<?php echo $_GET['id_ajeno']?>" name="to">
                 <input type="hidden" value="<?php echo $data->data->conversacion[0]->_id?>" name="id_conversacion">
-                <th><input type="submit" value="Añadir viaje"></th>
-            </form>
-            </tr>
-    </table>
+                <th><input type="submit" value="Enviar Mensaje"></th>
+    </form>
