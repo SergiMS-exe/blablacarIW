@@ -11,7 +11,6 @@ module.exports = function (app, gestorBD) {
             if (resultConversation==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al obtener la conversacion, intentelo de nuevo más tarde" } })
             else {
-                console.log(resultConversation[0]._id);
                 var string = "" + resultConversation[0]._id;
                 //res.send({status: 200, data: {conversacion: resultConversation}});
                 let criterio2 = {"conversacion": string}
