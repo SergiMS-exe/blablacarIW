@@ -1,5 +1,5 @@
 <footer class="footer seccion">
-    <div class="contenedor contenedor-footer">    
+    <div class="container contenedor-footer">    
         <nav class="navegacion">
             <p>Nombres</p>
         </nav>

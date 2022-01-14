@@ -30,7 +30,6 @@ require("./routes/wheater_api")(app, https);
 require("./routes/incidencias_api")(app, https);
 require("./routes/flickr_api")(app, https);
 
-
 //Controlador en caso de 404
 app.get('*',function (req, res,next) {
     console.log("Error producido: ");

@@ -1,3 +1,4 @@
+<section class="container">
     <h1>Tiempo</h1>
     <form action="apiTiempo/realtime.php" method="GET">
         <input type="text" name="location" placeholder="Localización"/>
@@ -15,3 +16,4 @@
         <input type="text" name="day" placeholder="Dia a Buscar"/>
         <input type="submit" value="Buscar prediccion astronómica"/>
     </form>
+</section>
