@@ -19,7 +19,7 @@
                 foreach ($data->data->usuarios as $usuario){ ?>                
                     <tr>
                         <td><?php echo $usuario->nombre; ?></td>
-                        <form action="/mensajeria/ver_conversacion.php" method="GET">
+                        <form action="ver_conversacion.php" method="GET">
                             <input type="hidden" value="<?php echo $usuario->_id?>" name="id_ajeno">
                             <input type="hidden" value="<?php echo $_GET['id']?>" name="id_local">
                             <th><input type="submit" value="Ver conversación"></th>
