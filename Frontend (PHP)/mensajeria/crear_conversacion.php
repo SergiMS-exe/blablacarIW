@@ -26,7 +26,6 @@ $url = 'http://localhost:3000/conversations/add';
         $result = json_decode($output);
         
         $_SESSION['server_msg'] = $result->data->msg;
-        $id = $result->data->id;
         header('Location: ver_conversacion.php?id_ajeno='. $_POST['id_local'].'&id_local='. $_POST['id_ajeno']);
         
 

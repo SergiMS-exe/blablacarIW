@@ -100,7 +100,7 @@ module.exports = function (app, gestorBD) {
             }
             else {
                 console.log(conversacion._id);
-                res.send({status: 200, data: {msg: 'conversacion añadida correctamente', id: conversacion._id}})
+                res.send({status: 200, data: {msg: 'conversacion añadida correctamente'}})
             }
         });
     });
