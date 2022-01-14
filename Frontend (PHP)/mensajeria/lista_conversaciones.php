@@ -28,3 +28,14 @@
                 
             <?php } ?>
     </table>
+    
+    <form action="crear_conversacion.php" method="POST">
+        <select name="select">
+                <?php foreach ($data->data->notusuarios as $notusuario){ ?>
+                    <option value="<?php $notusuario->_id?>"><?php echo $notusuario->nombre ?></option>
+                <?php } ?>
+        </select>
+        <input type="hidden" value="<?php echo $notusuario->_id?>" name="id_ajeno">
+        <input type="hidden" value="<?php echo $_GET['id']?>" name="id_local">
+        <input type="submit" value="Nueva Conversacion">
+    </form>

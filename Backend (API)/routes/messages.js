@@ -15,6 +15,10 @@ module.exports = function (app, gestorBD) {
     app.post('/messages/add', function (req, res) {
         //TODO hacer validador y encriptar la contraseña
         console.log(req.body);
+        var cuerpo = req.body;
+        cuerpo.stamp = new Date();
+        
+        console.log(cuerpo);
         gestorBD.insertarItem(req.body, 'mensajes', function (mensaje) {
             if (mensaje == null) {
                 console.log("WARN: Fallo al insertar un mensaje")

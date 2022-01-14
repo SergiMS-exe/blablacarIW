@@ -61,11 +61,21 @@ module.exports = function (app, gestorBD) {
                 console.log(usuarios_objectsids);
 
                 let query = { "_id": {$in: usuarios_objectsids }};
+                let query2 = {"_id": {$nin: usuarios_objectsids }};
                 gestorBD.obtenerItem(query, 'usuarios', function(resultUsers){
                     if (resultUsers==null)
                         res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los usuarios, intentelo de nuevo más tarde" } })
                     else
-                        res.send({status: 200, data: {usuarios: resultUsers}});
+                        gestorBD.obtenerItem(query2, 'usuarios', function(resultUsers2)
+                        {
+                            if (resultUsers2==null)
+                            res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los usuarios, intentelo de nuevo más tarde" } })
+                            else
+                            {
+                                res.send({status: 200, data: {usuarios: resultUsers, notusuarios: resultUsers2}});
+                            }
+                        })
+                        
                 });
             } 
         })
@@ -89,8 +99,8 @@ module.exports = function (app, gestorBD) {
                 res.send({ Error: { status: 500, data: "Se ha producido un error al insertar la conversacion, intentelo de nuevo más tarde" } })
             }
             else {
-                console.log(req.body);
-                res.send({status: 200, data: {msg: 'conversacion añadida correctamente'}})
+                console.log(conversacion._id);
+                res.send({status: 200, data: {msg: 'conversacion añadida correctamente', id: conversacion._id}})
             }
         });
     });
