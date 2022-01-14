@@ -27,15 +27,23 @@
         
         header('Location: index.php');
     }
-    $res = file_get_contents("http://localhost:3000/conversacion/".$_GET['id_local']."&".$_GET['id_ajeno']);
+    $res = file_get_contents("http://localhost:3000/conversacion?id1=".$_GET['id_local']."&id2=".$_GET['id_ajeno']);
     $data = json_decode($res);
     $resUser = file_get_contents("http://localhost:3000/users/edit/".$_GET['id_emisor']);
     $dataUser = json_decode($res);
+    
     // $resViajes = file_get_contents("http://localhost:3000/listaviajes");
     // $dataViajes = json_decode($resViajes);
+    $usuarioajeno = $data->data->usuarios[0];
+    if ($data->data->usuarios[0]->_id == "61d4499da80ea85a20f949ed")
+    {
+        $usuarioajeno = $data->data->usuarios[1];
+    }
 ?>
 
-<h1 align="center">Conversación con <?php echo $dataUser->usuario->nombre;?></h1>
+<h1><?php echo $data->data->usuarios[0]->nombre;?></h1>
+
+<h1 align="center">Conversación con <?php echo $usuarioajeno->nombre;?></h1>
 
 <table width="75%" align="center">
     

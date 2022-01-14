@@ -22,7 +22,14 @@ module.exports = function (app, gestorBD) {
                     if (resultMensajes==null)
                     res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los mensajes, intentelo de nuevo más tarde" } })
                     else {
-                        res.send({status: 200, data: {conversacion: resultConversation, mensajes: resultMensajes}});
+                        let criterio3 = {$or: [ {"_id": gestorBD.mongo.ObjectID(req.query.id1)}, {"_id": gestorBD.mongo.ObjectID(req.query.id2)}]}
+                        gestorBD.obtenerItem(criterio3, 'usuarios' , function(resultUsers)
+                        {
+                            if (resultUsers==null)
+                            res.send({ Error: { status: 500, data: "Se ha producido un error al obtener los usuarios, intentelo de nuevo más tarde" } })
+                        else
+                            res.send({status: 200, data: {conversacion: resultConversation, mensajes: resultMensajes, usuarios: resultUsers}});
+                        })
                     }
                 })
             }
@@ -40,13 +47,20 @@ module.exports = function (app, gestorBD) {
                     console.log(conversacion.participantes[0]);
                     console.log(req.params.id);
                     if (conversacion.participantes[0] == req.params.id)
+                    {
                         usuarios.push(conversacion.participantes[1]);
+                        console.log("uwu");
+                    }
                     else {
                         usuarios.push(conversacion.participantes[0]);
+                        console.log("ewe");
+                        
+                    
                     }
                 });
                 var usuarios_objectsids = usuarios.map(function(user) { return gestorBD.mongo.ObjectID(user)})
-                
+                console.log(usuarios_objectsids);
+
                 let query = { "_id": {$in: usuarios_objectsids }};
                 gestorBD.obtenerItem(query, 'usuarios', function(resultUsers){
                     if (resultUsers==null)
@@ -70,12 +84,13 @@ module.exports = function (app, gestorBD) {
 
     app.post('/conversations/add', function (req, res) {
         //TODO hacer validador y encriptar la contraseña
-        gestorBD.insertarItem(req.body, 'conversacion', function (conversacion) {
+        gestorBD.insertarItem(req.body, 'conversaciones', function (conversacion) {
             if (conversacion == null) {
                 console.log("WARN: Fallo al insertar un conversacion. Email: " + req.body.email)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al insertar la conversacion, intentelo de nuevo más tarde" } })
             }
             else {
+                console.log(req.body);
                 res.send({status: 200, data: {msg: 'conversacion añadida correctamente'}})
             }
         });
@@ -108,7 +123,7 @@ module.exports = function (app, gestorBD) {
         console.log(req.body);
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         let nuevoMensaje = req.body;
-        gestorBD.modificarItem(criterio, nuevoMensaje, 'conversacion', function(result){
+        gestorBD.modificarItem(criterio, nuevoMensaje, 'conversaciones', function(result){
             if (result==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al editar la conversacion, intentelo de nuevo más tarde" } })
             else {

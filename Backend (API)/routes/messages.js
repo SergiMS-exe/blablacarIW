@@ -14,7 +14,7 @@ module.exports = function (app, gestorBD) {
 
     app.post('/messages/add', function (req, res) {
         //TODO hacer validador y encriptar la contraseña
-        gestorBD.insertarItem(req.body, 'mensaje', function (mensaje) {
+        gestorBD.insertarItem(req.body, 'mensajes', function (mensaje) {
             if (mensaje == null) {
                 console.log("WARN: Fallo al insertar un mensaje")
                 res.send({ Error: { status: 500, data: "Se ha producido un error al insertar el mensaje, intentelo de nuevo más tarde" } })
@@ -52,7 +52,7 @@ module.exports = function (app, gestorBD) {
         console.log(req.body);
         let criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)};
         let nuevoMensaje = req.body;
-        gestorBD.modificarItem(criterio, nuevoMensaje, 'mensaje', function(result){
+        gestorBD.modificarItem(criterio, nuevoMensaje, 'mensajes', function(result){
             if (result==null)
                 res.send({ Error: { status: 500, data: "Se ha producido un error al editar el mensaje, intentelo de nuevo más tarde" } })
             else {
