@@ -37,4 +37,16 @@
                 
             <?php } ?>
     </table>
+    <?php 
+        If (isset($_SESSION['login'])){
+            var_dump($_SESSION["usuario"]->_id)
+            
+            ?> 
+            <h1><?php echo $_SESSION["usuario"]->_id;?></h1>
+            <form action="mensajeria/lista_conversaciones.php" method="GET">
+            <input type="hidden" value=<?php echo $_SESSION["usuario"]->_id ?> name="id">    
+            <th><input type="submit" value="Ver Conversaciones"></th>
+        </form> <?php
+          }
+    ?>
 </section>
