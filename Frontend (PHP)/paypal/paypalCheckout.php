@@ -24,7 +24,7 @@
         onAuthorize: function (data, actions) {
             return actions.payment.execute()
                 .then(function () {
-                    window.location = "<?php echo PayPalBaseUrl ?>orderDetails.php?paymentID="+data.paymentID+"&payerID="+data.payerID+"&token="+data.paymentToken+"&pid='<?php echo $viaje->_id; ?>'";
+                    window.location = "<?php echo PayPalBaseUrl ?>orderDetails.php?paymentID="+data.paymentID+"&payerID="+data.payerID+"&token="+data.paymentToken+"&pid='<?php echo $viaje->_id; echo "-"; echo $SESSION['usuario']->_id; ?>'";
                 });
         }
     }, '#paypal-button');

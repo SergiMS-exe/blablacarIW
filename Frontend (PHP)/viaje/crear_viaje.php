@@ -29,10 +29,10 @@
         
         $_SESSION['server_msg'] = $result->data->msg;
         
-        header('Location: index.php');
+        header('Location: ../index.php');
     }
     else {
-        $res = file_get_contents("http://localhost:3000/users/edit/".$_GET['id']);
+        $res = file_get_contents("http://localhost:3000/users/edit/".$_SESSION['usuario']->_id);
         $nombre = json_decode($res)->data->usuario[0]->nombre; 
     }
 ?>
@@ -45,7 +45,7 @@
     <input placeholder="hora_salida" name="hora_salida">
     <input placeholder="lugar_salida" name="lugar_salida">
     <input placeholder="lugar_llegada" name="lugar_llegada">
-    <input type="hidden" value=<?php echo $_GET['id']?> name="id_conductor">
+    <input type="hidden" value=<?php echo $_SESSION['usuario']->_id?> name="id_conductor">
     <input type="hidden" value=<?php echo $nombre?> name="nombre_conductor">
     <!-- <input type="hidden" name="id_pasajeros[]" value="61c0ef8108a00e29cc6f9b9c"> -->
     <input type="submit" value="Crear">
