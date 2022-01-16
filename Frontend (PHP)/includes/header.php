@@ -18,10 +18,10 @@
                             
 
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Buscar</a>
+                                <a href="../viaje/crear_viaje.php" class="nav-link">Buscar</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Publicar viaje</a>
+                                <a href="../viaje/crear_viaje.php" class="nav-link">Publicar viaje</a>
                             </li>
                             <?php 
                             

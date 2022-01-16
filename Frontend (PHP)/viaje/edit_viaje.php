@@ -42,7 +42,7 @@
         $data = json_decode($res); 
         $resUsers = file_get_contents("http://localhost:3000/");
         $dataUsers = json_decode($resUsers);
-        include './includes/header.php';
+        include '../includes/header.php';
     }
 ?>
 
