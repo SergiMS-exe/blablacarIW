@@ -3,7 +3,7 @@
     $res = file_get_contents("http://localhost:3000/weather/astronomy/".$_GET['location']."&".$_GET['day']);
     $data = json_decode($res);
 
-    include '../includes/header.php';
+    include '../../includes/header.php';
 ?>
 
 <h1>Datos astronomicos de <?php echo $_GET['location']?> para el día <?php echo $_GET['day']?></h1>

@@ -7,10 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if (!empty($user->data->usuarios)){
         //TO-DO: Comprobacion del password
-        unset($user->data->usuarios[0]->password);
-        $_SESSION['usuario'] = $user->data->usuarios[0]; 
-        $_SESSION['login'] = true;
-        header('Location: ./index.php');
+        if (strcmp($user->data->usuarios[0]->passord, $_POST['password'])) {
+            unset($user->data->usuarios[0]->password);
+            $_SESSION['usuario'] = $user->data->usuarios[0]; 
+            $_SESSION['login'] = true;
+            header('Location: ./index.php');
+        }else{
+            echo "El usuario no existe";
+        }
     }else{
         echo "El usuario no existe";
     }

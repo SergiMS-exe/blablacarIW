@@ -1,3 +1,5 @@
+<?php include 'paypal/config.php'?>
+
 <section class="container">
     <h1>Viajes</h1>
 
@@ -17,14 +19,19 @@
                         <td><?php echo $viaje->hora_salida; ?></td>
                         <td><?php echo $viaje->lugar_salida; ?></td>
                         <td><?php echo $viaje->lugar_llegada; ?></td>
-                        <form action="delete_viaje.php" method="POST">
-                            <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
-                            <th><input type="submit" value="Eliminar"></th>
-                        </form>
-                        <form action="edit_viaje.php" method="GET">
-                            <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
-                            <th><input type="submit" value="Editar"></th>
-                        </form>
+                        <?php if ($_SESSION['usuario']->admin != null) {?>
+                            <form action="delete_viaje.php" method="POST">
+                                <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
+                                <th><input type="submit" value="Eliminar"></th>
+                            </form>
+                            <form action="edit_viaje.php" method="GET">
+                                <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
+                                <th><input type="submit" value="Editar"></th>
+                            </form>
+                        <?php } else {
+                            ?>
+                            <td><?php include 'paypal/paypalCheckout.php'; ?></td>
+                        <?php } ?>
                     </tr>
                 
             <?php } ?>

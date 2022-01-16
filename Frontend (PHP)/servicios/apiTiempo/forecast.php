@@ -3,7 +3,7 @@
     $res = file_get_contents("http://localhost:3000/weather/forecast/".$_GET['location']."&".$_GET['days']);
     $data = json_decode($res);
 
-    include '../includes/header.php';
+    include '../../includes/header.php';
 ?>
 
 <h1>Tiempo en <?php echo $_GET['location']?> para los proximos <?php echo $_GET['days']?> dias</h1>

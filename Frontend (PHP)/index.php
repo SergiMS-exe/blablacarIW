@@ -38,8 +38,9 @@
     include 'includes/buscador_incidencias.php';
     
     include 'includes/mapa.php';
-
-    include 'includes/usuarios.php';
+    if ($_SESSION['usuario']->admin != null){
+        include 'includes/usuarios.php';
+    }
     
     include 'includes/viajes.php';
     

@@ -25,11 +25,8 @@
                             </li>
                             <?php 
                             
-                            if (!isset($_SESSION['login'])){?>
-                                <li class="nav-item">
-                                    <a href="login.php" class="nav-link">Iniciar sesión</a>
-                                </li>
-                            <?php
+                            if (!isset($_SESSION['login'])){
+                                header ('Location: ../login.php');
                             }else{?>
                                 <li class="nav-item">
                                     <a href="logout.php" class="nav-link">Cerrar sesión</a>
