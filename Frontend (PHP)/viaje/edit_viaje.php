@@ -42,7 +42,6 @@
         $data = json_decode($res); 
         $resUsers = file_get_contents("http://localhost:3000/");
         $dataUsers = json_decode($resUsers);
-        include '../includes/header.php';
     }
 ?>
 
@@ -71,7 +70,7 @@
     foreach($dataUsers->data->usuarios as $usuario){
         if(!in_array($usuario->_id, $data->data->viaje[0]->id_pasajeros) && $data->data->viaje[0]->id_conductor != $usuario->_id){
             ?>
-            <input type="checkbox" name="id_pasajeros[]" value="<?php echo $usuario->_id ?>" > <?php echo $usuario->nombre. " ".$usuario->apellido; ?> <br>
+            <input type="checkbox" name="id_pasajeros[]" value="<?php echo $usuario->_id ?>" > <?php if (isset($usuario->apellido)){ echo $usuario->nombre." ".$usuario->apellido;} else {echo $usuario->nombre;} ?> <br>
         <?php    
         } 
     }
@@ -85,4 +84,4 @@
     <input type="submit" value="Editar">
 </form>
 
-<?php include './includes/footer.php' ?>
+<?php include '../includes/footer.php' ?>

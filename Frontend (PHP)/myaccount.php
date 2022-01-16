@@ -36,6 +36,7 @@
             <th>Hora Salida</th>
             <th>Lugar Salida</th>
             <th>Lugar Llegada</th>
+            <th>Precio</th>
         </tr>
             <?php foreach ($dataViajes->data->viajes as $viaje) { ?>                
                 <tr>
@@ -43,6 +44,15 @@
                     <td><?php echo $viaje->hora_salida; ?></td>
                     <td><?php echo $viaje->lugar_salida; ?></td>
                     <td><?php echo $viaje->lugar_llegada; ?></td>
+                    <td><?php echo $viaje->price; echo $viaje->currency ?></td>
+                    <form action="./viaje/delete_viaje.php" method="POST">
+                        <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
+                        <th><input type="submit" value="Eliminar"></th>
+                    </form>
+                    <form action="./viaje/edit_viaje.php" method="GET">
+                        <input type="hidden" value="<?php echo $viaje->_id?>" name="id">
+                        <th><input type="submit" value="Editar"></th>
+                    </form>
                 </tr>
             <?php } ?>
     </table>
