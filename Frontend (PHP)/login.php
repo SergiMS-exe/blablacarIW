@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
                     <div class="login-input">
                         <label for="password">Contraseña</label>
-                        <input type="text" name="password" required>
+                        <input type="password" name="password" required>
                     </div>
                 </div>
                 

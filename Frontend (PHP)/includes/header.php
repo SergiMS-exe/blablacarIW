@@ -14,8 +14,9 @@
                 <img src="./resources/logo.svg" height="87" width="100"alt="Imagen logo">
                 
                 <div class="contenido-header">
-                    <?php if (isset($_SESSION['usuario']->admin)) {?>
-                        <h1><a href="../myaccount.php"><?php echo $_SESSION['usuario']->nombre?></a></h1>    
+                    <h1><a href="../index.php">Home</a></h1>
+                    <?php if (!isset($_SESSION['usuario']->admin)) {?>
+                        <h1><a href="../myaccount.php">Mi Perfil</a></h1>    
                     <?php }?>
                     <div class="d-flex justify-content-center py-3">
                         <ul class="nav nav-pills">

@@ -8,6 +8,7 @@
         $resViajesRes = file_get_contents("http://localhost:3000/viajespasajero/".$user['_id']);
         $dataViajesRes = json_decode($resViajesRes);
 
+        include "./includes/header.php";
     } else {
         header('Location: /login.php');
     }
